@@ -1,7 +1,7 @@
 
 
 import Actions from '../actions';
-console.log(Actions);
+
 
 const initialState = {    
     data: null,
@@ -18,6 +18,7 @@ export default function catReducer(state=initialState, action) {
                    })
       case Actions.FETCH_CAT_SUCCESS: 
             return Object.assign({}, state, {
+                   data:action.data,
                    loading:true
                    })
       case Actions.FETCH_CAT_ERROR: 

@@ -16,7 +16,7 @@ export const FETCH_CAT_SUCCESS = 'FETCH_CAT_SUCCESS';
 export const fetchCatSuccess = data => ({
   data,
   type: FETCH_CAT_SUCCESS
-});
+}); 
 
 export const ADOPT_CAT_REQUEST = 'ADOPT_CAT_REQUEST';
 export const adoptCatRequest = () => ({
@@ -40,7 +40,7 @@ export const fetchCat = () => dispatch => {
   console.log('Attempting to fetch a cat');
   dispatch(fetchCatRequest());
 
-  fetch(`${REACT_APP_API_BASE_URL}/cat`)
+  fetch(`${REACT_APP_API_BASE_URL}/api/cat`)
     .then(res => {
       if (!res.ok) {
         console.log('error fetching the cat!');
@@ -50,6 +50,7 @@ export const fetchCat = () => dispatch => {
     })
     .then(cat => {
       console.log('Got a cat! Dispatching fetchCatSuccess');
+      
       dispatch(fetchCatSuccess(cat));
     })
     .catch(error => fetchCatError(error));
@@ -62,7 +63,7 @@ export const adoptCat = () => dispatch => {
   console.log('adopt cat');
   dispatch(adoptCatRequest());
 
-  fetch(`${REACT_APP_API_BASE_URL}/cat`, { method: 'DELETE' })
+  fetch(`${REACT_APP_API_BASE_URL}/api/cat`, { method: 'DELETE' })
     .then(res => {
       if (!res.ok) {
         console.log('error adopting cat');

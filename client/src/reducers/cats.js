@@ -1,28 +1,43 @@
 
 
-import Index from '../actions';
-console.log(Index);
+import Actions from '../actions';
+console.log(Actions);
 
-const initialState = {  
-  imageURL:'https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg', 
-  imageDescription: 'Orange bengal cat with black stripes lounging on concrete.',
-  name: 'Fluffy',
-  sex: 'Female',
-  age: 2,
-  breed: 'Bengal',
-  story: 'Thrown on the street'
+const initialState = {    
+    data: null,
+    error: null,
+    loading: false      
 }
 
   
-export default function catReducer(state=initialState, Index) {
-switch (Index) {
-
-  case Index.FETCH_CAT_REQUEST: 
-      return Object.assign({}, state, {
-          loading:true
-          })
-
+export default function catReducer(state=initialState, action) {
+    switch (action.type) {
+      case Actions.FETCH_CAT_REQUEST: 
+           return Object.assign({}, state, {
+                   loading:true
+                   })
+      case Actions.FETCH_CAT_SUCCESS: 
+            return Object.assign({}, state, {
+                   loading:true
+                   })
+      case Actions.FETCH_CAT_ERROR: 
+            return Object.assign({}, state, {
+                   loading:true
+                   })
+      case Actions.DELETE_CAT_REQUEST: 
+            return Object.assign({}, state, {
+                   loading:true
+                   })
+      case Actions.DELETE_CAT_SUCCESS: 
+            return Object.assign({}, state, {
+                   loading:true
+                   })
+      case Actions.DELETE_CAT_ERROR: 
+            return Object.assign({}, state, {
+                   loading:true
+                   })
       default:
       return state
         }
-      };    
+      }
+     

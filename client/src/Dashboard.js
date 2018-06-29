@@ -1,40 +1,26 @@
 import React from 'react';
 import Pet from './components/Pet'
+import { connect } from 'react-redux';
+export class Dashboard extends React.Component {
 
-export default function Dashboard (props){
-
-  let dogObj = {
-    imageURL: 'http://www.dogster.com/wp-content/uploads/2015/05/Cute%20dog%20listening%20to%20music%201_1.jpg',
-    imageDescription: 'A smiling golden-brown golden retreiver listening to music.',
-    name: 'Zeus',
-    sex: 'Male',
-    age: 3,
-    breed: 'Golden Retriever',
-    story: 'Owner Passed away'
-  }
-  let catObj = {  
-    imageURL:'https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg', 
-    imageDescription: 'Orange bengal cat with black stripes lounging on concrete.',
-    name: 'Fluffy',
-    sex: 'Female',
-    age: 2,
-    breed: 'Bengal',
-    story: 'Thrown on the street'
-  }
   
+
+  
+  render(){
+    console.log(this.props)
     return (
       <div className="pets">
         <div className="row">
           <div className="col-6">
             <Pet
-              {...catObj}
+              {...this.props.catData}
               onAdoptPet = {()=>console.log('not working')}
               //onAdoptPet={() => this.props.dispatch(adoptCat())}
             />
           </div>
           <div className="col-6">
             <Pet
-              {...dogObj}
+              {...this.props.dogData}
               onAdoptPet = {()=>console.log('not working')}
               //onAdoptPet={() => this.props.dispatch(adoptDog())}
             />
@@ -43,6 +29,16 @@ export default function Dashboard (props){
      </div>
     );
   }
+  }
+
+  const mapStateToProps = state => {
+    return {
+     catData:state.catReducer,
+     dogData:state.dogReducer
+    };  
+};
+
+export default connect(mapStateToProps)(Dashboard);
 
 
 

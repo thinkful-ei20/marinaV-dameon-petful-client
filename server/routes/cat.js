@@ -1,10 +1,18 @@
 const router = require('express').Router();
 const { catsData } = require('../db/seedData');
+const { catsQueue } = require('../db/queueModule');
+
+// get first item in the queue
+const peek = queue => {
+  console.log(`First node: ${queue.first.value}`);
+  return queue.first.value;
+};
 
 /* ========== GET/READ CAT PROFILE ========== */
 router.get('/', function(req, res, next) {
-  res.json(catsData[0]);
-  console.log('CAT get endpoint')
+  console.log('CAT get endpoint rendered');
+
+  res.json(peek(catsQueue));
 
 });
 
@@ -12,11 +20,13 @@ router.get('/', function(req, res, next) {
 router.delete('/', function(req, res, next) {
   console.log('CAT delete endpoint rendered');
 
-  // remove first element of the arra
-  const firstEl = catsData.shift();
+  // dequeue first item from the queue and store in the variable
+  const firstNode = catsQueue.dequeue();
 
-  // add element to the end of the array
-  catsData.push(firstEl);
+  // enqueue removed item to the queue
+  // we do it only for the demo purposes
+  catsQueue.enqueue(firstNode);
+
   res.status(204).end();
 });
 

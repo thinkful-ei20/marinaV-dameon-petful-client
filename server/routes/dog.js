@@ -1,19 +1,29 @@
 const router = require('express').Router();
-const { dogsData } = require('../db/seedData');
+const { dogsQueue } = require('../db/queueModule');
+
+// get first item in the queue
+const peek = queue => {
+  console.log(`First node: ${queue.first.value}`);
+  return queue.first.value;
+};
 
 /* ========== GET/READ DOGS PROFILES ========== */
 router.get('/', function(req, res, next) {
   console.log('DOG get endpoint rendered');
-  res.json(dogsData[0]);
+  res.json(peek(dogsQueue));
 
 });
 
 /* ========== DELETE DOGS PROFILES ========== */
 router.delete('/', function(req, res, next) {
   console.log('DOG delete endpoint rendered');
-  const firstEl = dogsData.shift();
-  dogsData.push(firstEl);
-  console.log('TEMP', dogsData.length);
+  // dequeue first item from the queue and store in the variable
+  const firstNode = dogsQueue.dequeue();
+
+  // enqueue removed item to the queue
+  // we do it only for the demo purposes
+  dogsQueue.enqueue(firstNode);
+
   res.status(204).end();
 
 });

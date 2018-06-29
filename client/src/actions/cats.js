@@ -33,50 +33,25 @@ export const adoptCatSuccess = () => ({
   type: ADOPT_CAT_SUCCESS
 });
 
-
-/// --------------------------- GETTING A CAT ----------------------------- ///
-
 export const fetchCat = () => dispatch => {
-  console.log('Attempting to fetch a cat');
   dispatch(fetchCatRequest());
-
   fetch(`${REACT_APP_API_BASE_URL}/api/cat`)
     .then(res => {
-      if (!res.ok) {
-        console.log('error fetching the cat!');
-        return Promise.reject(res.statusText);
-      }
+      if (!res.ok) { return Promise.reject(res.statusText); }
       return res.json();
     })
-    .then(cat => {
-      console.log('Got a cat! Dispatching fetchCatSuccess');
-      
-      dispatch(fetchCatSuccess(cat));
-    })
+    .then(cat => dispatch(fetchCatSuccess(cat)))
     .catch(error => fetchCatError(error));
 };
 
-
-/// --------------------------- DELETING A CAT ----------------------------- ///
-
 export const adoptCat = () => dispatch => {
-  console.log('adopt cat');
   dispatch(adoptCatRequest());
-
   fetch(`${REACT_APP_API_BASE_URL}/api/cat`, { method: 'DELETE' })
     .then(res => {
-      if (!res.ok) {
-        console.log('error adopting cat');
-        return Promise.reject(res.statusText);
-      }
+      if (!res.ok) { return Promise.reject(res.statusText); }
       return res.statusText;
     })
-    .then(cat => {
-      console.log('dispatching adoptCatSuccess');
-      dispatch(adoptCatSuccess());
-    })
+    .then(() => dispatch(adoptCatSuccess()))
     .then(() => dispatch(fetchCat()))
     .catch(error => adoptCatError(error));
 };
-
-

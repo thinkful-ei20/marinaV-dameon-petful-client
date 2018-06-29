@@ -33,12 +33,8 @@ export const adoptDogSuccess = () => ({
 });
 
 
-/// --------------------------- GETTING A DOG ----------------------------- ///
-
 export const fetchDog = () => dispatch => {
-  console.log('Attempting to fetch a dog');
   dispatch(fetchDogRequest());
-
   fetch(`${REACT_APP_API_BASE_URL}/api/dog`)
     .then(res => {
       if (!res.ok) {
@@ -47,21 +43,12 @@ export const fetchDog = () => dispatch => {
       }
       return res.json();
     })
-    .then(dog => {
-      console.log('Got a dog! Dispatching fetchDogSuccess');
-      dispatch(fetchDogSuccess(dog));
-    })
+    .then(dog => dispatch(fetchDogSuccess(dog)))
     .then(error => fetchDogError(error));
 };
 
-
-
-/** --------------------------- DELETING A DOG ----------------------------- **/
-
 export const adoptDog = () => dispatch => {
-  console.log('adopt dog');
   dispatch(adoptDogRequest());
-
   fetch(`${REACT_APP_API_BASE_URL}/api/dog`, { method: 'DELETE' })
     .then(res => {
       if (!res.ok) {
@@ -70,13 +57,7 @@ export const adoptDog = () => dispatch => {
       }
       return res.statusText;
     })
-    .then(dog => {
-      console.log('dispatching adoptDogSuccess');
-      dispatch(adoptDogSuccess());
-    })
+    .then(() => dispatch(adoptDogSuccess()))
     .then(() => dispatch(fetchDog()))
     .then(error => adoptDogError(error));
 };
-
-
-

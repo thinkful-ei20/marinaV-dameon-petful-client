@@ -8,6 +8,8 @@ These are the only two animals allowed in the shelter. The adoption process work
 on a first-in, first-out basis. People can adopt a cat, or a dog, or both, but they may only adopt 
 the animals that have been in the shelter the longest.
 
+View live demo [here](https://petfulclientmarinavdameon.herokuapp.com/)
+
 ## Built With
  
  [create-react-app](https://github.com/facebook/create-react-app)

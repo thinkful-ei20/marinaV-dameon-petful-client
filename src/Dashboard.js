@@ -5,16 +5,13 @@ import { fetchCat , adoptCat } from './actions/cats';
 import { fetchDog , adoptDog } from './actions/dogs';
 export class Dashboard extends React.Component {
 
-  
-
-
   componentDidMount(){
     this.props.dispatch(fetchCat());
     this.props.dispatch(fetchDog());
   }
   
   render(){
-    console.log(this.props)
+    console.log(this.props);
     return (
       <div className="pets">
         <div className="row">

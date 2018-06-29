@@ -1,8 +1,8 @@
 import React from 'react';
 import Pet from './components/Pet'
 import { connect } from 'react-redux';
-import { fetchCat } from './actions/cats';
-import { fetchDog } from './actions/dogs';
+import { fetchCat , adoptCat } from './actions/cats';
+import { fetchDog , adoptDog } from './actions/dogs';
 export class Dashboard extends React.Component {
 
   
@@ -21,15 +21,15 @@ export class Dashboard extends React.Component {
           <div className="col-6">
             <Pet
               {...this.props.catData}
-              onAdoptPet = {()=>console.log('not working')}
-              //onAdoptPet={() => this.props.dispatch(adoptCat())}
+              //onAdoptPet = {()=>this.props.dispatch('not working')}
+              onAdoptPet={() => this.props.dispatch(adoptCat())}
             />
           </div>
           <div className="col-6">
             <Pet
               {...this.props.dogData}
-              onAdoptPet = {()=>console.log('not working')}
-              //onAdoptPet={() => this.props.dispatch(adoptDog())}
+              //onAdoptPet = {()=>console.log('not working')}
+              onAdoptPet={() => this.props.dispatch(adoptDog())}
             />
           </div>
         </div>
